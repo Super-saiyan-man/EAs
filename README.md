@@ -1,2 +1,2 @@
-# moea
+# MOEAs
 The implement of MOEAs
