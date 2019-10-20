@@ -13,7 +13,12 @@ function Pl = PLS(P,alpha,Global)
     index = CrowdDis>mean(setdiff(CrowdDis,Inf));
     if sum(index)~=0
 %         NP = Global.Initialization(sum(index));
-        NP = INDIVIDUAL(rand*(upper + lower) - P(index).decs);
+%         NP = INDIVIDUAL(rand*(upper + lower) - P(index).decs);
+        if rand>0.5
+            NP = INDIVIDUAL(rand*(upper + lower) - P(index).decs);
+        else
+            NP = Global.Initialization(sum(index));
+        end
     end
     m = (lower + (upper-lower).*rand([row,col])).*randsrc(row,col,[-1,1])*alpha;
     diff = m(0==index,:);

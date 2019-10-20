@@ -12,9 +12,8 @@ function Idea2_4(Global)
     %% Step 1 Initialization:
     [alpha,p] = Global.ParameterSet(0.5,0.5);
     P = Global.Initialization();
-
     while Global.NotTermination(P)
-        alpha = 1 - Global.evaluated/Global.evaluation;
+%         alpha = 1 - Global.evaluated/Global.evaluation;
         Pb = Update1(P);
         Pp = Update2(P,Global);
         Pl = [PLS(Pb,alpha,Global),PLS(Pp,alpha,Global),Pb,Pp];
@@ -28,4 +27,3 @@ function Idea2_4(Global)
         P = EnvironmentalSelection([P,NP],Global.N);
     end
 end
-
