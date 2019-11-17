@@ -3,7 +3,6 @@ function Pl = PLS(P,alpha,Global)
 %   此处显示详细说明
     lower = min(P.decs,[],1);
     upper = max(P.decs,[],1);
-    
     if length(P)>Global.N
         [P,~,CrowdDis] = EnvironmentalSelection(P,Global.N);
     else
