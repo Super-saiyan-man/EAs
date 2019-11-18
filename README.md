@@ -9,6 +9,4 @@ The platform which i use is PlatEMO, here is the Copyright.
 % Tian, Ran Cheng, Xingyi Zhang, and Yaochu Jin, PlatEMO: A MATLAB platform
 % for evolutionary multi-objective optimization [educational forum], IEEE
 % Computational Intelligence Magazine, 2017, 12(4): 73-87".
-%--------------------------------------------------------------------------
-
-I use this platform just for my research.
+%--------------------------------------------------------------------------=
