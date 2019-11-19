@@ -15,10 +15,8 @@ function Idea3(Global)
     %% Optimization
     while Global.NotTermination(Population)
         Offspring = GenerateOffspring(Population,Z,K);
-        TObjs = CT([Population,Offspring],m,angle);
-        Z = ZS(TObjs,K);
-        Population = ZSA([Population,Offspring],TObjs,Z,Global);
-        TObjs = CT(Population,m,angle);
-        Z = ZS(TObjs,K);
+        Z = ZS([Population;Offspring],K);
+        Population = ZSA([Population;Offspring],Z);
+        Z = ZS(Population,K);
     end
 end
