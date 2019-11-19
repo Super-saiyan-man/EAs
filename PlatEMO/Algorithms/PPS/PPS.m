@@ -107,7 +107,7 @@ while Global.NotTermination(Population)
     
     % Output the non-dominated and feasible solutions.
     arch = archive([arch,Population],Global.N);
-    if Global.evaluated >= Global.evaluation
+    if Global.gen >= Global.maxgen
         Population = arch;
     end
 end
