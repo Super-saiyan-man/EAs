@@ -51,12 +51,9 @@ classdef GUI < handle
             obj.algList = obj.readList2('Algorithms','algorithm');
             obj.proList = obj.readList2('Problems','problem');
             obj.metList = obj.readList2('Metrics','metric');
-<<<<<<< HEAD
             obj.algList = [{'Highlighted'},{{'ARMOEA','GrEA','IBEA','MOEAD','NSGAII','NSGAIISDR','NSGAIII','RVEA'}};obj.algList];
             obj.algList = [{'MyAlgorithms'},{{'CGLAMOEA'}};obj.algList];
-=======
-            obj.algList = [{'Highlighted'},{{'Idea2_1','Idea2_2','Idea2_3','Idea2_4','Idea2_4_1','Idea2_4_2','Idea2_5','Idea2_6','Idea2_7','ARMOEA','GrEA','IBEA','MOEAD','NSGAII','NSGAIISDR','NSGAIII','RVEA'}};obj.algList];
->>>>>>> parent of df1d8473... Update CGLA-MOEA
+            obj.algList = [{'Highlighted'},{{'ARMOEA','GrEA','IBEA','MOEAD','NSGAII','NSGAIISDR','NSGAIII','RVEA'}};obj.algList];
         end
         function List = readList2(obj,folder,class)
             Folders  = regexp(genpath(fullfile(folder)),'[;,:]','split');
