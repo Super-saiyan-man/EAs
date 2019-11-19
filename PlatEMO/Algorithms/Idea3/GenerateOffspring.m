@@ -1,5 +1,5 @@
 function Offspring = GenerateOffspring(Population,Z,K)
-%GENERATEOFFSPRING 此处显示有关此函数的摘要
+%GENERATEOFFSPRING generate the offspring
 %   此处显示详细说明
     N = length(Population);
     Offspring = ones(N,length(Population(1).dec));

@@ -4,7 +4,7 @@ function transformed = CT(original,m,angle)
     transformed = zeros(length(original),m);
     if m == 2
         OObjs = original.objs;
-        transform_metrix = [cos(angle),-sin(angle);sin(angle),cos(angle)];
+        transform_metrix = [cos(angle),sin(angle);-sin(angle),cos(angle)];
         for i = 1:length(original)
             transformed(i,:) = transform_metrix * OObjs(i,:)';
         end

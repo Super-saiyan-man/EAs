@@ -9,6 +9,7 @@ function NewPopulation = ZSA(Population,TObjs,Z,Global)
     end
     NewPopulation = NewPopulation(2:end);
     if length(NewPopulation)<Global.N
+        disp(length(NewPopulation));
         leftPopulation = setdiff(Population,NewPopulation);
         NewPopulation = [NewPopulation,Population(randperm(length(leftPopulation),Global.N - length(NewPopulation)))];
     end
