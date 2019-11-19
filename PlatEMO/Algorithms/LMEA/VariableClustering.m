@@ -52,7 +52,7 @@ function [PV,DV] = VariableClustering(Global,Population,nSel,nPer)
     
     %% Detect the kind of each decision variable
     VariableKind = (mean(RMSE,2)<1e-2)';
-    result       = kmeans(Angle,3)';
+    result       = kmeans(Angle,2)';
     if any(result(VariableKind)==1) && any(result(VariableKind)==2)
         if mean(mean(Angle(result==1&VariableKind,:))) > mean(mean(Angle(result==2&VariableKind,:)))
             VariableKind = VariableKind & result==1;

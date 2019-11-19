@@ -35,7 +35,6 @@ classdef MPDMP < PROBLEM
             obj.Global.encoding = 'real';
             % Generate vertexes
             if mod(obj.Global.M,2) == 0
-                
                 Angle = (2.*(1:obj.Global.M)-3).*pi./obj.Global.M;
             else
                 Angle = (2.*(1:obj.Global.M)-2).*pi./obj.Global.M;
