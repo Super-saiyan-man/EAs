@@ -3,7 +3,7 @@ pi = 1;
 MaxFEs = 10000;
 %% Initialization
 
-N = 100;
+N = 20;
 D = 10;
 t = 0;
 Ae = [];
@@ -20,13 +20,16 @@ PB = X;
 Xp = X;
 [~,GBI] = min(f(X,pi));
 GB = X(GBI,:);
+%% experiment module
+fave = zeros(MaxFEs,1);
+fbest = zeros(MaxFEs,1);
 %%
-while t <= MaxFEs
-    
+while t < MaxFEs
     t = t + 1;
     [~,AeI] = sort(f(X,pi));
     Ae = X(AeI(1:M),:);
     [~,ApI] = sort(Ir(X,Xp,pi),'descend');
+    Xp = X;
     Ap = X(ApI(1:M),:);
     pk = (M:-1:1)/sum(M:-1:1);
     E = zeros(N,D);
@@ -37,8 +40,8 @@ while t <= MaxFEs
             Ao = [Ao;E(i,:)];
         elseif length(Ao) >= N && f(E(i,:),pi)<f(PB(i,:),pi)
             ri = randperm(length(Ao),2);
-            Ej1 = Ao(ri(1));
-            Ej2 = Ao(ri(2));
+            Ej1 = Ao(ri(1),:);
+            Ej2 = Ao(ri(2),:);
             if f(Ej1,pi) > f(Ej2,pi)
                 Ao(ri(1),:) = E(i,:);
             else
@@ -50,7 +53,16 @@ while t <= MaxFEs
         end
     end
     PB = Reuse_exemplars(Ao,PB,pi);
+    
+    [~,GBI] = min(f(X,pi));
+    GB = X(GBI,:);
+    
+    fave(t) = mean(f(X,pi));
+    
+    fbest(t) = min(f(X,pi));
 end
+
+plot(1:MaxFEs,fave)
 
 function ir =  Ir(X,Xp,pi)
     ir = (f(Xp,pi) - f(X,pi))./(exp(sum((Xp - X).^2,2)));
