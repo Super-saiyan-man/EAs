@@ -1,7 +1,36 @@
-pi = 1;
-[~,upper,lower] = f(0,pi);
-MaxFEs = 1000;
-%% Initialization
+function MOTAPSO(Global)
+% <algorithm> <M>
+% pc --- 10 --- pc
+% pm --- 10 --- pm
+% w --- 0.7298 --- w
+
+   %% Parameter definition
+    m = Global.M;
+    n = Global.N;
+    D = Global.D;
+    [pc,pm,w] = Global.ParameterSet(0.5,0.02,0.7098);
+    M = n/4;
+    %% Generate random population
+    P = Global.Initialization();
+    V = zeros(n,D);
+    PB = P;
+    Pp = P;
+    GB = P(NDSort(P.objs,1) == 1);
+    %% Optimization
+    while Global.NotTermination(P)
+        Ae = EnvironmentalSelection(P,M);
+        [~,ApI] = sort(Ir(P,Pp),'descend');
+        Ap = P(ApI(1:M));
+        pk = (M:-1:1)/sum(M:-1:1);
+        E = INDIVIDUAL;
+        for i = 1:n
+            E = [E,Breed_Exemplar(Ae.decs,Ap.decs,pm,pc,pk)];
+            if i == 1
+                E = E(2:end);
+            end
+            [P,V] = Select_learning_model(P,V,E,PB,GB,w,i);
+        end
+    end
 
 N = 20;
 D = 10;
@@ -20,10 +49,9 @@ PB = X;
 Xp = X;
 [~,GBI] = min(f(X,pi));
 GB = X(GBI,:);
-%% experiment module
-fave = zeros(MaxFEs,1);
-fbest = zeros(MaxFEs,1);
-%%
+
+
+
 while t < MaxFEs
     t = t + 1;
     [~,AeI] = sort(f(X,pi));
@@ -53,19 +81,11 @@ while t < MaxFEs
         end
     end
     PB = Reuse_exemplars(Ao,PB,pi);
-    
     [~,GBI] = min(f(X,pi));
     GB = X(GBI,:);
-    
-    fave(t) = mean(f(X,pi));
-    
-    fbest(t) = min(f(X,pi));
-    
-    disp(min(f(X,pi)));
 end
 
-plot(1:MaxFEs,fbest)
-
-function ir =  Ir(X,Xp,pi)
-    ir = (f(Xp,pi) - f(X,pi))./(exp(sum((Xp - X).^2,2)));
+function ir =  Ir(P,Pp)
+    ir = sum((Pp.objs - P.objs).^2,2)./(exp(sum((Pp.decs - P.decs).^2,2)));
+end
 end
