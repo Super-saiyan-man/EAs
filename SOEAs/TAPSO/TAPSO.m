@@ -1,10 +1,10 @@
 pi = 1;
-[~,upper,lower] = f(0,pi);
-MaxFEs = 1000;
+
+MaxFEs = 5000;
 %% Initialization
 
-N = 20;
-D = 10;
+N = 100;
+D = 2;
 t = 0;
 Ae = [];
 Ap = [];
@@ -15,6 +15,7 @@ M = N/4;
 w = 0.7298; 
 
 V = zeros(N,D);
+[~,upper,lower] = f(zeros(1,D),pi);
 X = lower + (upper-lower) * rand(N,D);
 PB = X;
 Xp = X;
@@ -53,18 +54,16 @@ while t < MaxFEs
         end
     end
     PB = Reuse_exemplars(Ao,PB,pi);
-    
     [~,GBI] = min(f(X,pi));
     GB = X(GBI,:);
-    
     fave(t) = mean(f(X,pi));
-    
     fbest(t) = min(f(X,pi));
-    
     disp(min(f(X,pi)));
 end
 
 plot(1:MaxFEs,fbest)
+
+% scatter(X(:,1),X(:,2))
 
 function ir =  Ir(X,Xp,pi)
     ir = (f(Xp,pi) - f(X,pi))./(exp(sum((Xp - X).^2,2)));
