@@ -1,10 +1,10 @@
 pi = 1;
 
-MaxFEs = 5000;
+MaxFEs = 10000;
 %% Initialization
 
 N = 100;
-D = 2;
+D = 30;
 t = 0;
 Ae = [];
 Ap = [];
@@ -35,7 +35,7 @@ while t < MaxFEs
     pk = (M:-1:1)/sum(M:-1:1);
     E = zeros(N,D);
     for i = 1:N
-        E(i,:) = Breed_Exemplar(Ae,Ap,pm,pc,pk);
+        E(i,:) = Breed_Exemplar(Ae,Ap,pm,pc,pk,upper,lower);
         [X,V] = Select_learning_model(X,V,E,PB,GB,i,pi,w);
         if length(Ao)<N && f(E(i,:),pi)<f(PB(i,:),pi)
             Ao = [Ao;E(i,:)];
@@ -63,8 +63,7 @@ end
 
 plot(1:MaxFEs,fbest)
 
-% scatter(X(:,1),X(:,2))
 
 function ir =  Ir(X,Xp,pi)
-    ir = (f(Xp,pi) - f(X,pi))./(exp(sum((Xp - X).^2,2)));
+    ir = (f(Xp,pi) - f(X,pi))./(exp(sqrt(sum((Xp - X).^2,2))));
 end

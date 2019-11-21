@@ -3,7 +3,6 @@ function PB = Reuse_exemplars(Ao,PB,pi)
 %   此处显示详细说明
     fPB = f(PB,pi);
     [~,PBi] = sort(fPB,'descend');
-    PB = PB(PBi,:);
     if mod(length(Ao),2)==1
         Ao = setdiff(Ao,Ao(randperm(length(Ao),1),:),'rows');
     end
@@ -15,8 +14,8 @@ function PB = Reuse_exemplars(Ao,PB,pi)
         else
             E = Ao(group2(i),:);
         end
-        if f(E,pi) < f(PB(i,:),pi)
-            PB(i,:) = E;
+        if f(E,pi) < f(PB(PBi(i),:),pi)
+            PB(PBi(i),:) = E;
        end
     end
 end
